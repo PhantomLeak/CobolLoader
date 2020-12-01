@@ -12,6 +12,7 @@ import java.util.List;
 
 public class BookCSV extends CommonCSV {
 
+  
   private String bookCSVFile = "";
   public List<Book> books = new ArrayList<>();
 
@@ -20,10 +21,12 @@ public class BookCSV extends CommonCSV {
     bookCSVFile = file;
   }
 
+  // Creating new file reader.
   @Override
   public List<Book> readCSV() throws FileNotFoundException {
     FileReader reader = new FileReader(bookCSVFile);
-
+    
+    // Try statement to read file.
    try(BufferedReader bBookReader = new BufferedReader(reader)) {
      String line;
      int headers = 0;
@@ -36,12 +39,13 @@ public class BookCSV extends CommonCSV {
          books.add(new Book(line.toLowerCase().split(getDelimiter())));
        }
      }
-   } catch (IOException ex) {
+   } catch (IOException ex) { // Catch Error and display error message.
      System.out.println("Could not load file <" + bookCSVFile + ">\n" + ex);
    }
    return books;
   }
 
+  // Prints out the file to be read.
   @Override
   public void printCSV() {
     if (books.size() > 0) {
@@ -54,6 +58,7 @@ public class BookCSV extends CommonCSV {
 
   }
 
+  //Creating a new file writter
   @Override
   public void writeCSV() throws IOException {
     File outFile = new File("./data/newBooks.csv");
